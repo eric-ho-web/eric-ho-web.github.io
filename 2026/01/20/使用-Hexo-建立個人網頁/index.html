@@ -1,0 +1,415 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>使用 Hexo 建立個人網頁 | Eric’s Blog</title><meta name="author" content="Eric"><meta name="copyright" content="Eric"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="使用 Hexo 建立個人網頁章節說明 Hexo 簡介   工作原理說明   注意事項   安裝 Hexo   初始化（建立 Hexo 專案資料夾）   1. Hexo 簡介Hexo 是一個簡單、快速且功能強大的靜態網站產生工具，常用於搭配 GitHub Pages 建立個人網頁。它支援 Markdown 語法，並擁有大量成熟的主題與外掛生態。  官方網站：http:&#x2F;&#x2F;hexo.io   GitH">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Hexo 建立個人網頁">
+<meta property="og:url" content="http://example.com/2026/01/20/%E4%BD%BF%E7%94%A8-Hexo-%E5%BB%BA%E7%AB%8B%E5%80%8B%E4%BA%BA%E7%B6%B2%E9%A0%81/index.html">
+<meta property="og:site_name" content="Eric’s Blog">
+<meta property="og:description" content="使用 Hexo 建立個人網頁章節說明 Hexo 簡介   工作原理說明   注意事項   安裝 Hexo   初始化（建立 Hexo 專案資料夾）   1. Hexo 簡介Hexo 是一個簡單、快速且功能強大的靜態網站產生工具，常用於搭配 GitHub Pages 建立個人網頁。它支援 Markdown 語法，並擁有大量成熟的主題與外掛生態。  官方網站：http:&#x2F;&#x2F;hexo.io   GitH">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/butterfly-icon.png">
+<meta property="article:published_time" content="2026-01-19T23:39:10.000Z">
+<meta property="article:modified_time" content="2026-01-20T00:06:54.000Z">
+<meta property="article:author" content="Eric">
+<meta property="article:tag" content="Git">
+<meta property="article:tag" content="Git Bash">
+<meta property="article:tag" content="GitHub">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="SSH">
+<meta property="article:tag" content="Windows">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "使用 Hexo 建立個人網頁",
+  "url": "http://example.com/2026/01/20/%E4%BD%BF%E7%94%A8-Hexo-%E5%BB%BA%E7%AB%8B%E5%80%8B%E4%BA%BA%E7%B6%B2%E9%A0%81/",
+  "image": "http://example.com/img/butterfly-icon.png",
+  "datePublished": "2026-01-19T23:39:10.000Z",
+  "dateModified": "2026-01-20T00:06:54.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Eric",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2026/01/20/%E4%BD%BF%E7%94%A8-Hexo-%E5%BB%BA%E7%AB%8B%E5%80%8B%E4%BA%BA%E7%B6%B2%E9%A0%81/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '使用 Hexo 建立個人網頁',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Eric’s Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">使用 Hexo 建立個人網頁</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">使用 Hexo 建立個人網頁</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-01-19T23:39:10.000Z" title="Created 2026-01-20 07:39:10">2026-01-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-01-20T00:06:54.000Z" title="Updated 2026-01-20 08:06:54">2026-01-20</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="使用-Hexo-建立個人網頁"><a href="#使用-Hexo-建立個人網頁" class="headerlink" title="使用 Hexo 建立個人網頁"></a>使用 Hexo 建立個人網頁</h2><h3 id="章節說明"><a href="#章節說明" class="headerlink" title="章節說明"></a>章節說明</h3><ol>
+<li>Hexo 簡介  </li>
+<li>工作原理說明  </li>
+<li>注意事項  </li>
+<li>安裝 Hexo  </li>
+<li>初始化（建立 Hexo 專案資料夾）</li>
+</ol>
+<hr>
+<h3 id="1-Hexo-簡介"><a href="#1-Hexo-簡介" class="headerlink" title="1. Hexo 簡介"></a>1. Hexo 簡介</h3><p>Hexo 是一個簡單、快速且功能強大的靜態網站產生工具，常用於搭配 GitHub Pages 建立個人網頁。<br>它支援 Markdown 語法，並擁有大量成熟的主題與外掛生態。</p>
+<ul>
+<li>官方網站：<a target="_blank" rel="noopener" href="http://hexo.io/">http://hexo.io</a>  </li>
+<li>GitHub：<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo">https://github.com/hexojs/hexo</a></li>
+</ul>
+<hr>
+<h3 id="2-工作原理說明"><a href="#2-工作原理說明" class="headerlink" title="2. 工作原理說明"></a>2. 工作原理說明</h3><p>GitHub Pages 只能託管<strong>靜態檔案</strong>，而個人網頁中常包含文章列表、分類、標籤、分頁等結構化內容。</p>
+<p>若每次新增內容都需手動維護頁面與連結，實際上難以長期維護。</p>
+<p>Hexo 的運作方式為：</p>
+<ul>
+<li>所有內容以 Markdown 檔案形式儲存在本機</li>
+<li>透過指令一次性產生完整的靜態頁面（HTML）</li>
+<li>將產生後的靜態檔案部署至 GitHub Pages</li>
+</ul>
+<p>換言之：</p>
+<ul>
+<li>內容撰寫在本機完成</li>
+<li>網頁由 Hexo 自動產生</li>
+<li>GitHub 僅負責提供靜態頁面託管</li>
+</ul>
+<hr>
+<h3 id="3-注意事項"><a href="#3-注意事項" class="headerlink" title="3. 注意事項"></a>3. 注意事項</h3><p>在安裝與使用 Hexo 前，請留意以下事項：</p>
+<ul>
+<li>多數指令可於 Windows 的 cmd 或 Git Bash 中執行<br>為避免環境差異造成問題，<strong>建議統一使用 Git Bash</strong></li>
+<li>Hexo 不同版本之間差異較大，網路上不少教學基於舊版（如 2.x），需留意避免混用</li>
+<li>Hexo 專案中存在兩個 <code>_config.yml</code>：<ul>
+<li>專案根目錄下的全域設定檔</li>
+<li>主題資料夾中的主題設定檔</li>
+</ul>
+</li>
+</ul>
+<p>修改設定時需確認實際修改的檔案位置。</p>
+<hr>
+<h3 id="4-安裝-Hexo"><a href="#4-安裝-Hexo" class="headerlink" title="4. 安裝 Hexo"></a>4. 安裝 Hexo</h3><p>請先確認已安裝 Node.js，接著在命令列中執行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure>
+
+<p>安裝完成後，可使用以下指令確認版本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="5-初始化（建立-Hexo-專案資料夾）"><a href="#5-初始化（建立-Hexo-專案資料夾）" class="headerlink" title="5. 初始化（建立 Hexo 專案資料夾）"></a>5. 初始化（建立 Hexo 專案資料夾）</h3><p>在電腦中選擇一個固定、不會隨意刪除的位置建立專案資料夾，作為個人網頁專案的存放位置。</p>
+<p>例如建立資料夾：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F:\Web\PersonalWebsite</span><br></pre></td></tr></table></figure>
+
+<p>開啟 <strong>Git Bash</strong>，進入該資料夾：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /f/Web/PersonalWebsite</span><br></pre></td></tr></table></figure>
+
+<p>說明：</p>
+<ul>
+<li>Windows 路徑為 <code>F:\Web\PersonalWebsite</code></li>
+<li>在 Git Bash 中需寫成 <code>/f/Web/PersonalWebsite</code></li>
+<li><code>PersonalWebsite</code> 為實際存放 Hexo 專案的資料夾名稱</li>
+</ul>
+<p>在該目錄中執行初始化指令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+
+<p>當<code>F:\Web\PersonalWebsite</code>資料夾中出現以下內容時，代表初始化完成：</p>
+<ul>
+<li><code>node_modules/</code></li>
+<li><code>source/</code></li>
+<li><code>themes/</code></li>
+<li><code>_config.yml</code></li>
+</ul>
+<h3 id="6-產生靜態檔案與本地預覽"><a href="#6-產生靜態檔案與本地預覽" class="headerlink" title="6. 產生靜態檔案與本地預覽"></a>6. 產生靜態檔案與本地預覽</h3><p>在專案目錄中執行以下指令：</p>
+<pre><code>hexo g   # 產生靜態檔案
+hexo s   # 啟動本地預覽服務
+</code></pre>
+<p>說明：</p>
+<ul>
+<li><p>hexo g（generate）<br>會在 public&#x2F; 資料夾中產生完整的靜態 HTML 檔案<br>這些檔案就是未來要部署到 GitHub Pages 的內容</p>
+</li>
+<li><p>hexo s（server）<br>啟動本地預覽伺服器，方便在部署前檢視實際畫面</p>
+</li>
+</ul>
+<p>啟動成功後，終端機會顯示類似訊息：</p>
+<pre><code>INFO  Hexo is running at http://localhost:4000/
+</code></pre>
+<p>在瀏覽器開啟以下網址即可查看個人網頁：</p>
+<pre><code>http://localhost:4000
+</code></pre>
+<hr>
+<h3 id="7-關於本地預覽無法開啟的常見問題"><a href="#7-關於本地預覽無法開啟的常見問題" class="headerlink" title="7. 關於本地預覽無法開啟的常見問題"></a>7. 關於本地預覽無法開啟的常見問題</h3><p>若瀏覽器一直顯示載入中，但畫面無法顯示，通常原因為：</p>
+<ul>
+<li>4000 連接埠已被其他程式佔用</li>
+</ul>
+<p>此為 Windows 上常見狀況，並非 Hexo 錯誤。</p>
+<p>可透過更換連接埠或釋放佔用程式來解決，相關處理方式可參考：</p>
+<p><a target="_blank" rel="noopener" href="http://blog.liuxianan.com/windows-port-bind.html">http://blog.liuxianan.com/windows-port-bind.html</a></p>
+<hr>
+<h3 id="8-預設內容說明"><a href="#8-預設內容說明" class="headerlink" title="8. 預設內容說明"></a>8. 預設內容說明</h3><p>第一次初始化 Hexo 時，系統已自動建立一篇範例文章：</p>
+<pre><code>Hello World
+</code></pre>
+<p>此文章用於展示：</p>
+<ul>
+<li>Markdown 轉換結果</li>
+<li>預設主題的版型與樣式</li>
+<li>文章頁與首頁列表效果</li>
+</ul>
+<p>後續可直接刪除或修改該文章，替換為自己的內容。</p>
+<h3 id="9-問題排除（清理後重新產生）"><a href="#9-問題排除（清理後重新產生）" class="headerlink" title="9. 問題排除（清理後重新產生）"></a>9. 問題排除（清理後重新產生）</h3><p>如果在操作過程中出現一些難以判斷的異常問題，可先執行清理指令：</p>
+<pre><code>hexo clean
+</code></pre>
+<p>此指令會清除 <code>public/</code> 資料夾內已產生的檔案，<br>之後再重新產生與預覽：</p>
+<pre><code>hexo g
+hexo s
+</code></pre>
+<hr>
+<h3 id="10-上傳之前的重要提醒"><a href="#10-上傳之前的重要提醒" class="headerlink" title="10. 上傳之前的重要提醒"></a>10. 上傳之前的重要提醒</h3><p>在將個人網頁部署到 GitHub 之前，<strong>務必先備份原本 GitHub 儲存庫中的所有檔案</strong>。</p>
+<p>原因說明：</p>
+<ul>
+<li>Hexo 部署時，會以產生後的靜態檔案為主</li>
+<li>若設定不當，可能會覆蓋原本儲存庫中的其他內容</li>
+<li>雖然 GitHub 具有版本管理，但自行備份仍是較安全的做法</li>
+</ul>
+<hr>
+<h3 id="11-部署到-GitHub-Pages"><a href="#11-部署到-GitHub-Pages" class="headerlink" title="11. 部署到 GitHub Pages"></a>11. 部署到 GitHub Pages</h3><p>當所有設定完成後，部署流程本身非常單純：</p>
+<pre><code>hexo d
+</code></pre>
+<p>但前提是以下條件必須正確完成。</p>
+<hr>
+<h4 id="11-1-SSH-Key-設定完成"><a href="#11-1-SSH-Key-設定完成" class="headerlink" title="11.1 SSH Key 設定完成"></a>11.1 SSH Key 設定完成</h4><ul>
+<li>必須已正確設定 SSH Key</li>
+<li>並確認可使用 SSH 連線至 GitHub</li>
+</ul>
+<hr>
+<h4 id="11-2-設定-config-yml-的-deploy-區段"><a href="#11-2-設定-config-yml-的-deploy-區段" class="headerlink" title="11.2 設定 _config.yml 的 deploy 區段"></a>11.2 設定 _config.yml 的 deploy 區段</h4><p>請編輯專案根目錄下的 <code>_config.yml</code>，設定如下：</p>
+<p>正確寫法（目前適用）：</p>
+<pre><code>deploy:
+  type: git
+  repository: git@github.com:username/username.github.io.git
+  branch: master
+</code></pre>
+<p>branch是master還是main根據你安裝git時的選擇</p>
+<p>若直接執行 <code>hexo d</code> 出現以下錯誤訊息：</p>
+<ul>
+<li>Deployer not found: github</li>
+<li>Deployer not found: git</li>
+</ul>
+<p>代表尚未安裝部署外掛。</p>
+<hr>
+<h2 id="建議操作順序"><a href="#建議操作順序" class="headerlink" title="建議操作順序"></a>建議操作順序</h2><p>為避免在實作過程中混淆 GitHub 身分、SSH 設定與 Hexo 部署流程，<br>建議依照以下順序完成各階段設定：</p>
+<ol>
+<li><p><strong>產生並設定 GitHub SSH Key（ed25519）</strong><br>建立本機與 GitHub 之間的安全連線，<br>作為後續所有 Git 操作的基礎。</p>
+</li>
+<li><p><strong>GitHub SSH 設定：一台電腦複數 GitHub 帳號的 SSH 與 Git 身分設定說明</strong><br>說明 SSH 與 Git <code>user.name</code> &#x2F; <code>user.email</code> 的角色區分，<br>並建立多帳號環境下穩定、不混帳號的實務設定方式。</p>
+</li>
+<li><p><strong>初始化 Hexo：使用 Hexo 建立個人網頁</strong><br>建立 Hexo 專案、產生靜態檔案，<br>並於本地端完成預覽與基本設定。</p>
+</li>
+<li><p><strong>部署至雲端：Hexo 使用 SSH 成功部署至 GitHub Pages（多帳號情境）</strong><br>透過已設定完成的 SSH 環境，<br>將 Hexo 產生的靜態網站部署至對應的 GitHub Pages 儲存庫。</p>
+</li>
+</ol>
+<hr>
+<h4 id="11-3-安裝部署外掛"><a href="#11-3-安裝部署外掛" class="headerlink" title="11.3 安裝部署外掛"></a>11.3 安裝部署外掛</h4><p>請執行：</p>
+<pre><code>npm install hexo-deployer-git --save
+</code></pre>
+<p>注意事項：</p>
+<ul>
+<li><strong>部署指令務必使用 Git Bash 執行</strong></li>
+<li>若使用 cmd，可能會出現：<br><code>Permission denied (publickey)</code></li>
+</ul>
+<p>安裝完成後，再次執行：</p>
+<pre><code>hexo d
+</code></pre>
+<p>Hexo 只會提交有異動的檔案，未變更的內容不會重複上傳。</p>
+<hr>
+<h3 id="12-保留-CNAME、README-md-等非文章檔案"><a href="#12-保留-CNAME、README-md-等非文章檔案" class="headerlink" title="12. 保留 CNAME、README.md 等非文章檔案"></a>12. 保留 CNAME、README.md 等非文章檔案</h3><p>部署完成後，若發現 GitHub Pages 上原本的其他檔案消失，請勿慌張。</p>
+<p>處理原則如下：</p>
+<ul>
+<li>將 <strong>非 Markdown 檔案</strong>（例如 CNAME、圖片、其他靜態資源）<br>放入 <code>source/</code> 資料夾</li>
+<li>這些檔案會在產生時原樣複製到 <code>public/</code> 目錄</li>
+</ul>
+<p>注意事項：</p>
+<ul>
+<li>Hexo 會將所有 <code>.md</code> 檔轉為 HTML</li>
+<li><code>README.md</code> 會被轉成 <code>README.html</code></li>
+</ul>
+<p>因此若需要保留 README.md：</p>
+<ul>
+<li>每次產生後，手動將 <code>README.md</code> 複製到 <code>public/</code></li>
+<li>並刪除 <code>README.html</code></li>
+</ul>
+<hr>
+<h3 id="13-常用-Hexo-指令整理"><a href="#13-常用-Hexo-指令整理" class="headerlink" title="13. 常用 Hexo 指令整理"></a>13. 常用 Hexo 指令整理</h3><h4 id="常見指令"><a href="#常見指令" class="headerlink" title="常見指令"></a>常見指令</h4><pre><code>hexo new &quot;postName&quot;          # 新增文章
+hexo new page &quot;pageName&quot;    # 新增頁面
+hexo generate               # 產生靜態檔案至 public/
+hexo server                 # 啟動本地預覽（預設 4000）
+hexo deploy                 # 部署到 GitHub Pages
+hexo help                   # 查看說明
+hexo version                # 查看 Hexo 版本
+</code></pre>
+<h4 id="縮寫指令"><a href="#縮寫指令" class="headerlink" title="縮寫指令"></a>縮寫指令</h4><pre><code>hexo n == hexo new
+hexo g == hexo generate
+hexo s == hexo server
+hexo d == hexo deploy
+</code></pre>
+<h4 id="組合指令"><a href="#組合指令" class="headerlink" title="組合指令"></a>組合指令</h4><pre><code>hexo s -g   # 產生並本地預覽
+hexo d -g   # 產生並部署
+</code></pre>
+<hr>
+<h3 id="14-config-yml-說明"><a href="#14-config-yml-說明" class="headerlink" title="14. _config.yml 說明"></a>14. _config.yml 說明</h3><p><code>_config.yml</code> 為 Hexo 的全域設定檔。</p>
+<p>注意事項：</p>
+<ul>
+<li>每個冒號 <code>:</code> 後面 <strong>必須保留一個空格</strong></li>
+<li>少空格可能導致設定無法正確解析</li>
+</ul>
+<hr>
+<h3 id="15-撰寫個人網頁內容（文章與頁面）"><a href="#15-撰寫個人網頁內容（文章與頁面）" class="headerlink" title="15. 撰寫個人網頁內容（文章與頁面）"></a>15. 撰寫個人網頁內容（文章與頁面）</h3><p>在 Hexo 專案根目錄執行：</p>
+<pre><code>hexo new &quot;my-first-page&quot;
+</code></pre>
+<p>Hexo 會在 <code>_posts/</code> 資料夾中建立對應的 Markdown 檔案。</p>
+<p>範例文章結構如下：</p>
+<pre><code>---
+title: 文章標題
+date: 2026-01-20 10:00:00
+categories: 分類名稱
+tags: [tag1, tag2]
+description: 文章摘要（建議 140 字內）
+---
+
+以下為正文內容
+</code></pre>
+<p>使用此指令的好處在於：</p>
+<ul>
+<li>會自動產生時間</li>
+<li>檔案結構正確</li>
+</ul>
+<hr>
+<h3 id="16-文章與頁面的差異"><a href="#16-文章與頁面的差異" class="headerlink" title="16. 文章與頁面的差異"></a>16. 文章與頁面的差異</h3><p>新增頁面指令：</p>
+<pre><code>hexo new page &quot;about&quot;
+</code></pre>
+<p>產生結果：</p>
+<ul>
+<li>檔案位置：<br><code>source/about/index.md</code></li>
+<li>最終生成：<br><code>public/about/index.html</code></li>
+</ul>
+<p>差異說明：</p>
+<ul>
+<li>page 不會出現在文章列表中</li>
+<li>適合用於「關於我」、「作品集」、「聯絡方式」等固定頁面</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">Eric</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2026/01/20/%E4%BD%BF%E7%94%A8-Hexo-%E5%BB%BA%E7%AB%8B%E5%80%8B%E4%BA%BA%E7%B6%B2%E9%A0%81/">http://example.com/2026/01/20/%E4%BD%BF%E7%94%A8-Hexo-%E5%BB%BA%E7%AB%8B%E5%80%8B%E4%BA%BA%E7%B6%B2%E9%A0%81/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/GitHub/">GitHub</a><a class="post-meta__tags" href="/tags/SSH/">SSH</a><a class="post-meta__tags" href="/tags/Git/">Git</a><a class="post-meta__tags" href="/tags/Hexo/">Hexo</a><a class="post-meta__tags" href="/tags/Windows/">Windows</a><a class="post-meta__tags" href="/tags/Git-Bash/">Git Bash</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/01/20/%E4%B8%80%E5%8F%B0%E9%9B%BB%E8%85%A6%E5%A4%9A%E5%80%8B-GitHub-%E5%B8%B3%E8%99%9F%E7%9A%84-SSH-Git-%E8%A8%AD%E5%AE%9A%E8%88%87%E8%BA%AB%E5%88%86%E7%AE%A1%E7%90%86/" title="一台電腦多個 GitHub 帳號的 SSH  Git 設定與身分管理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">一台電腦多個 GitHub 帳號的 SSH  Git 設定與身分管理</div></div><div class="info-2"><div class="info-item-1">一台電腦複數 GitHub 帳號的 SSH 與 Git 身分設定說明問題背景在設定 GitHub SSH 時，常會看到以下舊教學提示： 12git config --global user.name &quot;username&quot;   # GitHub 使用者名稱（非暱稱）git config --global user.email &quot;usermail@gamil.com&quot; # GitHub 註冊信箱  使用者往往會誤以為：  這是 SSH 設定的一部分   不設定就無法 push   與 GitHub 登入身分直接綁定  實際上，這是一個非常常見但關鍵的誤解。  結論先行（最重要） SSH 設定 與 Git 使用者身分（user.name &#x2F; user.email）是兩套完全獨立的系統   SSH：決定「你能不能連上 GitHub」 Git config：決定「commit 顯示是誰」   一、SSH Key 與 Git Config 的角色區分1. SSH Key（已完成）用途：  驗證你是否有權限存取 GitHub repo 決定你「...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/01/20/%E4%B8%80%E5%8F%B0%E9%9B%BB%E8%85%A6%E5%A4%9A%E5%80%8B-GitHub-%E5%B8%B3%E8%99%9F%E7%9A%84-SSH-Git-%E8%A8%AD%E5%AE%9A%E8%88%87%E8%BA%AB%E5%88%86%E7%AE%A1%E7%90%86/" title="一台電腦多個 GitHub 帳號的 SSH  Git 設定與身分管理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-20</div><div class="info-item-2">一台電腦多個 GitHub 帳號的 SSH  Git 設定與身分管理</div></div><div class="info-2"><div class="info-item-1">一台電腦複數 GitHub 帳號的 SSH 與 Git 身分設定說明問題背景在設定 GitHub SSH 時，常會看到以下舊教學提示： 12git config --global user.name &quot;username&quot;   # GitHub 使用者名稱（非暱稱）git config --global user.email &quot;usermail@gamil.com&quot; # GitHub 註冊信箱  使用者往往會誤以為：  這是 SSH 設定的一部分   不設定就無法 push   與 GitHub 登入身分直接綁定  實際上，這是一個非常常見但關鍵的誤解。  結論先行（最重要） SSH 設定 與 Git 使用者身分（user.name &#x2F; user.email）是兩套完全獨立的系統   SSH：決定「你能不能連上 GitHub」 Git config：決定「commit 顯示是誰」   一、SSH Key 與 Git Config 的角色區分1. SSH Key（已完成）用途：  驗證你是否有權限存取 GitHub repo 決定你「...</div></div></div></a><a class="pagination-related" href="/2026/01/20/Hexo-%E4%BD%BF%E7%94%A8-SSH-%E6%88%90%E5%8A%9F%E9%83%A8%E7%BD%B2%E8%87%B3-GitHub-Pages%EF%BC%88%E4%BD%BF%E7%94%A8%E8%A4%87%E6%95%B8%E5%B8%B3%E8%99%9F%EF%BC%89/" title="Hexo 使用 SSH 成功部署至 GitHub Pages（使用複數帳號）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-20</div><div class="info-item-2">Hexo 使用 SSH 成功部署至 GitHub Pages（使用複數帳號）</div></div><div class="info-2"><div class="info-item-1">Hexo 使用 SSH 成功部署至 GitHub Pages（多帳號情境）本文記錄在 Windows 環境下，使用 Hexo 將個人網頁部署至 GitHub Pages，並解決「同一台電腦有多個 GitHub 帳號」時常見的權限與 SSH 身分問題。  一、環境與前提條件 作業系統：Windows 使用工具： Git for Windows（Git Bash） Node.js &#x2F; npm Hexo   情境： 本機已存在另一個 GitHub 帳號 本次部署使用不同的 GitHub 使用者（username）     二、初始化與靜態檔案產生（確認正常）在 Hexo 專案根目錄中執行： hexo g  可看到靜態檔案成功產生至 public/ 目錄。  三、第一次部署錯誤：Deployer not found: git執行： hexo d  出現錯誤： ERROR Deployer not found: git  原因說明：  Hexo 本身不包含 git 部署功能 需要額外安裝 deployer 外掛  解法在專案目錄中執行： npm install hexo-depl...</div></div></div></a><a class="pagination-related" href="/2026/01/20/GitHub-SSH%EF%BC%88ed25519%EF%BC%89%E8%A8%AD%E5%AE%9A%E6%B5%81%E7%A8%8B%E7%B4%80%E9%8C%84/" title="GitHub SSH（ed25519）設定流程紀錄"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-20</div><div class="info-item-2">GitHub SSH（ed25519）設定流程紀錄</div></div><div class="info-2"><div class="info-item-1">GitHub SSH（ed25519）設定流程紀錄（Windows）環境 作業系統：Windows 10 Shell：Command Prompt（cmd） Git 平台：GitHub 用途：個人網站與 Web 專案 使用者名稱：username   一、確認 .ssh 目錄是否存在嘗試使用 Linux 寫法（會失敗，正常）1$ cd ~/.ssh   → cmd 不支援 ~ 正確方式$ cd C:\Users\username.ssh 若不存在： 1$ mkdir C:\Users\username\.ssh  二、檢查現有 SSH key1$ dir C:\Users\username\.ssh 原有內容：  id_rsa（舊 RSA key） known_hosts known_hosts.old   三、產生新的 ed25519 SSH key（不覆蓋）指令1$ ssh-keygen -t ed25519 -C &quot;username@gmail.com&quot; -f id_ed25519_web_projects 過程 Enter passphrase：直接 ...</div></div></div></a><a class="pagination-related" href="/2026/01/20/Windows-%E4%B8%8A%E6%89%93%E9%96%8B-Git-Bash/" title="Windows 上打開 Git Bash"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-20</div><div class="info-item-2">Windows 上打開 Git Bash</div></div><div class="info-2"><div class="info-item-1">Windows 上打開 Git Bash第一步：開啟命令提示字元（cmd） 鍵盤按下  1Windows 鍵 + R  輸入：  1cmd  按 Enter  看到畫面類似： 1C:\Users\username&gt; 代表已成功開啟。  第二步：確認 Git 是否已安裝在 cmd 中輸入： 1git --version  正常會看到類似結果：1git version 2.51.2.windows.1   能看到版本號即可，這代表 Git 已安裝完成(版本號可能不同)   第三步：打開 Git Bash 鍵盤按下  1Windows 鍵  輸入：  1Git Bash  按 Enter   補充說明 git 可以在 cmd 使用 git-bash.exe 預設不在系統指令清單中， 因此無法在 cmd 小黑窗中直接輸入 git-bash 來開啟 這是 Git for Windows 的預設設計，不是安裝錯誤   結論用開始功能表打開 Git Bash，是最穩定做法 </div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Eric</div><div class="author-info-description">eric.ho.web</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Hexo-%E5%BB%BA%E7%AB%8B%E5%80%8B%E4%BA%BA%E7%B6%B2%E9%A0%81"><span class="toc-number">1.</span> <span class="toc-text">使用 Hexo 建立個人網頁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AB%A0%E7%AF%80%E8%AA%AA%E6%98%8E"><span class="toc-number">1.1.</span> <span class="toc-text">章節說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Hexo-%E7%B0%A1%E4%BB%8B"><span class="toc-number">1.2.</span> <span class="toc-text">1. Hexo 簡介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%AA%AA%E6%98%8E"><span class="toc-number">1.3.</span> <span class="toc-text">2. 工作原理說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85"><span class="toc-number">1.4.</span> <span class="toc-text">3. 注意事項</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AE%89%E8%A3%9D-Hexo"><span class="toc-number">1.5.</span> <span class="toc-text">4. 安裝 Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%88%E5%BB%BA%E7%AB%8B-Hexo-%E5%B0%88%E6%A1%88%E8%B3%87%E6%96%99%E5%A4%BE%EF%BC%89"><span class="toc-number">1.6.</span> <span class="toc-text">5. 初始化（建立 Hexo 專案資料夾）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E7%94%A2%E7%94%9F%E9%9D%9C%E6%85%8B%E6%AA%94%E6%A1%88%E8%88%87%E6%9C%AC%E5%9C%B0%E9%A0%90%E8%A6%BD"><span class="toc-number">1.7.</span> <span class="toc-text">6. 產生靜態檔案與本地預覽</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E9%97%9C%E6%96%BC%E6%9C%AC%E5%9C%B0%E9%A0%90%E8%A6%BD%E7%84%A1%E6%B3%95%E9%96%8B%E5%95%9F%E7%9A%84%E5%B8%B8%E8%A6%8B%E5%95%8F%E9%A1%8C"><span class="toc-number">1.8.</span> <span class="toc-text">7. 關於本地預覽無法開啟的常見問題</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E9%A0%90%E8%A8%AD%E5%85%A7%E5%AE%B9%E8%AA%AA%E6%98%8E"><span class="toc-number">1.9.</span> <span class="toc-text">8. 預設內容說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E5%95%8F%E9%A1%8C%E6%8E%92%E9%99%A4%EF%BC%88%E6%B8%85%E7%90%86%E5%BE%8C%E9%87%8D%E6%96%B0%E7%94%A2%E7%94%9F%EF%BC%89"><span class="toc-number">1.10.</span> <span class="toc-text">9. 問題排除（清理後重新產生）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E4%B8%8A%E5%82%B3%E4%B9%8B%E5%89%8D%E7%9A%84%E9%87%8D%E8%A6%81%E6%8F%90%E9%86%92"><span class="toc-number">1.11.</span> <span class="toc-text">10. 上傳之前的重要提醒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E9%83%A8%E7%BD%B2%E5%88%B0-GitHub-Pages"><span class="toc-number">1.12.</span> <span class="toc-text">11. 部署到 GitHub Pages</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#11-1-SSH-Key-%E8%A8%AD%E5%AE%9A%E5%AE%8C%E6%88%90"><span class="toc-number">1.12.1.</span> <span class="toc-text">11.1 SSH Key 設定完成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-2-%E8%A8%AD%E5%AE%9A-config-yml-%E7%9A%84-deploy-%E5%8D%80%E6%AE%B5"><span class="toc-number">1.12.2.</span> <span class="toc-text">11.2 設定 _config.yml 的 deploy 區段</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E8%AD%B0%E6%93%8D%E4%BD%9C%E9%A0%86%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">建議操作順序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#11-3-%E5%AE%89%E8%A3%9D%E9%83%A8%E7%BD%B2%E5%A4%96%E6%8E%9B"><span class="toc-number">2.1.</span> <span class="toc-text">11.3 安裝部署外掛</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E4%BF%9D%E7%95%99-CNAME%E3%80%81README-md-%E7%AD%89%E9%9D%9E%E6%96%87%E7%AB%A0%E6%AA%94%E6%A1%88"><span class="toc-number">2.2.</span> <span class="toc-text">12. 保留 CNAME、README.md 等非文章檔案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-%E5%B8%B8%E7%94%A8-Hexo-%E6%8C%87%E4%BB%A4%E6%95%B4%E7%90%86"><span class="toc-number">2.3.</span> <span class="toc-text">13. 常用 Hexo 指令整理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A6%8B%E6%8C%87%E4%BB%A4"><span class="toc-number">2.3.1.</span> <span class="toc-text">常見指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B8%AE%E5%AF%AB%E6%8C%87%E4%BB%A4"><span class="toc-number">2.3.2.</span> <span class="toc-text">縮寫指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B5%84%E5%90%88%E6%8C%87%E4%BB%A4"><span class="toc-number">2.3.3.</span> <span class="toc-text">組合指令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-config-yml-%E8%AA%AA%E6%98%8E"><span class="toc-number">2.4.</span> <span class="toc-text">14. _config.yml 說明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-%E6%92%B0%E5%AF%AB%E5%80%8B%E4%BA%BA%E7%B6%B2%E9%A0%81%E5%85%A7%E5%AE%B9%EF%BC%88%E6%96%87%E7%AB%A0%E8%88%87%E9%A0%81%E9%9D%A2%EF%BC%89"><span class="toc-number">2.5.</span> <span class="toc-text">15. 撰寫個人網頁內容（文章與頁面）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-%E6%96%87%E7%AB%A0%E8%88%87%E9%A0%81%E9%9D%A2%E7%9A%84%E5%B7%AE%E7%95%B0"><span class="toc-number">2.6.</span> <span class="toc-text">16. 文章與頁面的差異</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/20/%E4%BD%BF%E7%94%A8-Hexo-%E5%BB%BA%E7%AB%8B%E5%80%8B%E4%BA%BA%E7%B6%B2%E9%A0%81/" title="使用 Hexo 建立個人網頁">使用 Hexo 建立個人網頁</a><time datetime="2026-01-19T23:39:10.000Z" title="Created 2026-01-20 07:39:10">2026-01-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/20/%E4%B8%80%E5%8F%B0%E9%9B%BB%E8%85%A6%E5%A4%9A%E5%80%8B-GitHub-%E5%B8%B3%E8%99%9F%E7%9A%84-SSH-Git-%E8%A8%AD%E5%AE%9A%E8%88%87%E8%BA%AB%E5%88%86%E7%AE%A1%E7%90%86/" title="一台電腦多個 GitHub 帳號的 SSH  Git 設定與身分管理">一台電腦多個 GitHub 帳號的 SSH  Git 設定與身分管理</a><time datetime="2026-01-19T23:38:47.000Z" title="Created 2026-01-20 07:38:47">2026-01-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/20/Windows-%E4%B8%8A%E6%89%93%E9%96%8B-Git-Bash/" title="Windows 上打開 Git Bash">Windows 上打開 Git Bash</a><time datetime="2026-01-19T23:38:20.000Z" title="Created 2026-01-20 07:38:20">2026-01-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/20/Hexo-%E4%BD%BF%E7%94%A8-SSH-%E6%88%90%E5%8A%9F%E9%83%A8%E7%BD%B2%E8%87%B3-GitHub-Pages%EF%BC%88%E4%BD%BF%E7%94%A8%E8%A4%87%E6%95%B8%E5%B8%B3%E8%99%9F%EF%BC%89/" title="Hexo 使用 SSH 成功部署至 GitHub Pages（使用複數帳號）">Hexo 使用 SSH 成功部署至 GitHub Pages（使用複數帳號）</a><time datetime="2026-01-19T23:37:49.000Z" title="Created 2026-01-20 07:37:49">2026-01-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/20/GitHub-SSH%EF%BC%88ed25519%EF%BC%89%E8%A8%AD%E5%AE%9A%E6%B5%81%E7%A8%8B%E7%B4%80%E9%8C%84/" title="GitHub SSH（ed25519）設定流程紀錄">GitHub SSH（ed25519）設定流程紀錄</a><time datetime="2026-01-19T23:37:20.000Z" title="Created 2026-01-20 07:37:20">2026-01-20</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Eric</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

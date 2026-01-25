@@ -4,23 +4,85 @@
   
     
     <entry>
-      <title>ASP.NET Core MVC 之旅 (1)</title>
-      <link href="/2026/01/21/aspnet-core-mvc-notes-1/"/>
-      <url>/2026/01/21/aspnet-core-mvc-notes-1/</url>
+      <title>ASP.NET Core RESTful API Notes (1.1.2) | 什麼是 REST</title>
+      <link href="/2026/01/25/aspnet-core-restful-api-notes-1-1-2-rest/"/>
+      <url>/2026/01/25/aspnet-core-restful-api-notes-1-1-2-rest/</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<h1 id="1-1-2-什麼是-REST"><a href="#1-1-2-什麼是-REST" class="headerlink" title="1.1.2 什麼是 REST"></a>1.1.2 什麼是 REST</h1><p>REST，全名為 <strong>REpresentational State Transfer</strong>，中文常翻為「表述性狀態傳遞」，是一種用來設計 Web 服務的<strong>架構風格</strong>。</p><p>REST 並不是一種技術、框架或語言，而是一組設計原則，用來指導如何設計可擴展、易維護的 Web API。<br>這個概念最早由 <strong>Roy Fielding</strong> 在西元 2000 年的博士論文中提出。</p><hr><h2 id="REST-是為了解決什麼問題？"><a href="#REST-是為了解決什麼問題？" class="headerlink" title="REST 是為了解決什麼問題？"></a>REST 是為了解決什麼問題？</h2><p>在 Web 服務規模逐漸擴大後，系統往往會面臨以下問題：</p><ul><li>API 結構混亂、難以理解  </li><li>不同服務之間耦合度過高  </li><li>擴充新功能時影響既有系統</li></ul><p>REST 的目的，是<strong>降低系統複雜度</strong>，並讓 Web 服務能夠更容易擴展與維護。</p><hr><h2 id="資源（Resource）是-REST-的核心"><a href="#資源（Resource）是-REST-的核心" class="headerlink" title="資源（Resource）是 REST 的核心"></a>資源（Resource）是 REST 的核心</h2><p>在 REST 中，<strong>資源（Resource）是最基本的概念</strong>。</p><p>任何「可以被命名、被操作的對象」都可以視為一種資源，例如：</p><ul><li>user</li><li>order</li><li>product</li><li>document</li></ul><p>每一個資源，都會對應到一個 <strong>URI（Uniform Resource Identifier）</strong>，用來唯一識別該資源，例如：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/users/1234  </span><br><span class="line">/orders/5678</span><br></pre></td></tr></table></figure><hr><h2 id="資源集合與層級關係"><a href="#資源集合與層級關係" class="headerlink" title="資源集合與層級關係"></a>資源集合與層級關係</h2><p>除了單一資源之外，REST 也允許資源集合的存在，例如：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/users  </span><br><span class="line">/orders</span><br></pre></td></tr></table></figure><p>在實際系統中，不同資源之間往往存在關聯關係。<br>REST 透過 <strong>URI 的層級結構</strong> 來表達這種關聯，例如：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/users/1234/orders  </span><br><span class="line">/users/1234/orders/1</span><br></pre></td></tr></table></figure><hr><h2 id="使用-HTTP-方法操作資源"><a href="#使用-HTTP-方法操作資源" class="headerlink" title="使用 HTTP 方法操作資源"></a>使用 HTTP 方法操作資源</h2><p>REST <strong>不在 URI 中表達動作</strong>，而是透過 <strong>HTTP 方法</strong> 來描述對資源的操作。</p><p>例如：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET  /users/1234  </span><br><span class="line">PUT  /users/1234</span><br></pre></td></tr></table></figure><ul><li>GET：取得指定資源  </li><li>PUT：更新指定資源</li></ul><p>這與傳統以動詞命名 API 的方式不同，例如：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/api/GetUserInfo  </span><br><span class="line">/api/UpdateUserInfo</span><br></pre></td></tr></table></figure><p>在 REST 中，<strong>動作由 HTTP 方法負責，URI 專注於描述資源本身</strong>。</p><hr><h2 id="表述性狀態傳遞（REST-的意義）"><a href="#表述性狀態傳遞（REST-的意義）" class="headerlink" title="表述性狀態傳遞（REST 的意義）"></a>表述性狀態傳遞（REST 的意義）</h2><p>當用戶端對資源發送請求，並透過 HTTP 方法改變資源狀態後，<br>伺服器會回傳該資源的「表述（Representation）」給請求方。</p><p>這個「資源狀態的表述在客戶端與伺服器之間傳遞」的過程，<br>正是 <strong>REpresentational State Transfer</strong> 這個名稱的由來。</p><hr><h2 id="REST-與-HTTP-的關係"><a href="#REST-與-HTTP-的關係" class="headerlink" title="REST 與 HTTP 的關係"></a>REST 與 HTTP 的關係</h2><p>REST 本身並不限定一定要使用 HTTP，<br>但 <strong>HTTP 協議完整滿足 REST 所定義的約束條件</strong>，因此成為 REST 最常見的實作方式。</p><p>HTTP 所提供的功能，例如：</p><ul><li>HTTP 方法（GET、POST、PUT、DELETE）</li><li>狀態碼（200、404、500）</li><li>Header 與內容協商</li></ul><p>都能自然地對應到 REST 的設計原則，使 REST 能夠以鬆耦合的方式建構 Web 服務。</p><hr><h2 id="小結：什麼是-RESTful-API？"><a href="#小結：什麼是-RESTful-API？" class="headerlink" title="小結：什麼是 RESTful API？"></a>小結：什麼是 RESTful API？</h2><p>在實際開發工作中，RESTful API 已經成為前後端溝通的共同語言，就像 HTTP、JSON、Git 一樣。</p><p>當工作中提到「熟悉 RESTful API」，通常代表具備以下幾項能力：</p><h3 id="一、理解-API-的基本結構與語意"><a href="#一、理解-API-的基本結構與語意" class="headerlink" title="一、理解 API 的基本結構與語意"></a>一、理解 API 的基本結構與語意</h3><ul><li>使用 URI 表示資源  </li><li>透過 HTTP Method 表達操作行為  </li><li>回傳 JSON 資料格式  </li><li>能正確判讀常見 HTTP 狀態碼</li></ul><h3 id="二、能完成-API-的實務整合"><a href="#二、能完成-API-的實務整合" class="headerlink" title="二、能完成 API 的實務整合"></a>二、能完成 API 的實務整合</h3><ul><li>前端使用 fetch 或 axios  </li><li>Blazor 使用 HttpClient  </li><li>MVC 呼叫後端 API  </li><li>能處理授權資訊與錯誤狀態</li></ul><h3 id="三、遵循基本-REST-設計原則"><a href="#三、遵循基本-REST-設計原則" class="headerlink" title="三、遵循基本 REST 設計原則"></a>三、遵循基本 REST 設計原則</h3><ul><li>避免將動作寫入 URI  </li><li>採用資源導向設計  </li><li>搭配 HTTP Method，維持 API 結構清楚且一致</li></ul><p><strong>總結來說，RESTful API 是一種溝通規範，只要能看得懂、串得起，並遵循基本 REST 設計，即符合實務上的基本要求。</strong></p><blockquote><p>本節僅介紹 REST 的基本概念與核心思想。<br>接下來將進一步說明 RESTful API 如何實際應用在 Web API 的設計中。</p></blockquote>]]></content>
       
+      
+      <categories>
+          
+          <category> ASP.NET </category>
+          
+      </categories>
       
       
         <tags>
             
-            <tag> aspnet-core </tag>
+            <tag> ASP.NET Core </tag>
             
-            <tag> mvc </tag>
+            <tag> RESTful API </tag>
             
-            <tag> dotnet </tag>
+            <tag> Web API </tag>
             
-            <tag> csharp </tag>
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ASP.NET Core RESTful API Notes (1.1.1) | 什麼是 API</title>
+      <link href="/2026/01/25/aspnet-core-restful-api-notes-1-1-1-api/"/>
+      <url>/2026/01/25/aspnet-core-restful-api-notes-1-1-1-api/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1-1-API-與-REST"><a href="#1-1-API-與-REST" class="headerlink" title="1.1 API 與 REST"></a>1.1 API 與 REST</h1><h2 id="1-1-1-什麼是-API"><a href="#1-1-1-什麼是-API" class="headerlink" title="1.1.1 什麼是 API"></a>1.1.1 什麼是 API</h2><p>API，全名為 <strong>Application Programming Interface</strong>，中文常翻為「應用程式介面」，在開發應用程式時經常會使用到。</p><p>簡單來說，<strong>API 是一種用來連接兩個系統的介面</strong>，讓一方可以透過定義好的方式，向另一方請求服務或資料。</p><hr><h3 id="API-的概念"><a href="#API-的概念" class="headerlink" title="API 的概念"></a>API 的概念</h3><p>API 可以想成是一個系統「對外公開」的一組操作規格：</p><ul><li>系統會定義哪些功能可以被使用  </li><li>外部應用只能透過 API 與系統互動  </li><li>不需要知道系統內部是如何實作的</li></ul><p>例如，在作業系統上執行的應用程式，會透過作業系統提供的 API 來操作檔案、網路或硬體資源，而不需要直接操作底層實作。</p><hr><h3 id="Web-API-是什麼"><a href="#Web-API-是什麼" class="headerlink" title="Web API 是什麼"></a>Web API 是什麼</h3><p>在 Web 應用中，<strong>Web API 具備與一般 API 相同的特性</strong>，差別在於它是透過 HTTP 對外提供服務。</p><p>Web API 通常用來操作資料，例如：</p><ul><li>取得資料（查詢）</li><li>新增或修改資料</li><li>刪除資料</li></ul><p>這些 API 可以被各種不同的應用程式呼叫，例如：</p><ul><li>網頁前端（如 ASP.NET Core MVC、SPA）</li><li>行動裝置應用程式</li><li>其他後端系統或服務</li></ul><hr><h3 id="跨平台與語言無關"><a href="#跨平台與語言無關" class="headerlink" title="跨平台與語言無關"></a>跨平台與語言無關</h3><p>Web API 與平台及程式語言無關：</p><ul><li>後端可以使用 Java、.NET、Node.js 等技術實作  </li><li>呼叫端只要遵守 API 規格即可</li></ul><p>例如，一個使用 Java 開發的 Android 應用程式，也可以呼叫使用 C# 撰寫的 ASP.NET Core Web API。</p><hr><h3 id="為什麼-API-文件很重要"><a href="#為什麼-API-文件很重要" class="headerlink" title="為什麼 API 文件很重要"></a>為什麼 API 文件很重要</h3><p>API 作為一種介面，只對外提供抽象的操作方式，而不暴露其內部實作細節。<br>呼叫端無須關心 API 是如何實現的，只需要依照規格呼叫對應的方法即可。</p><p>Web API 並不是直接給應用程式使用者操作，而是提供給開發人員在開發應用時使用。<br>因此，一份<strong>結構清楚、語意明確的 API 文件</strong>，對於前後端協作與系統維護來說非常重要。</p><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> ASP.NET </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ASP.NET Core </tag>
+            
+            <tag> RESTful API </tag>
+            
+            <tag> Web API </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ASP.NET Core RESTful API Notes (1) | REST 基本概念</title>
+      <link href="/2026/01/25/aspnet-core-restful-api-notes-1-rest-intro/"/>
+      <url>/2026/01/25/aspnet-core-restful-api-notes-1-rest-intro/</url>
+      
+        <content type="html"><![CDATA[<h1 id="第一章-REST-基本概念"><a href="#第一章-REST-基本概念" class="headerlink" title="第一章 REST 基本概念"></a>第一章 REST 基本概念</h1><p>REST，全名為 <strong>Representational State Transfer</strong>，中文常翻為「表述性狀態轉移」，<br>是一種用來設計 Web 應用程式與 API 的<strong>架構風格</strong>。</p><p>簡單來說，REST 的目標是讓系統：</p><ul><li>結構清楚</li><li>易於維護</li><li>具有良好的效能與擴充性</li></ul><p>遵循 REST 設計原則的應用程式，通常被稱為 <strong>RESTful 應用</strong>。</p><hr><h2 id="為什麼要學-REST？"><a href="#為什麼要學-REST？" class="headerlink" title="為什麼要學 REST？"></a>為什麼要學 REST？</h2><p>在實務上，大多數 RESTful API 都是<strong>基於 HTTP 協議</strong>來實作的。<br>因此，要真正理解 REST，就必須先掌握 HTTP 的核心概念。</p><hr><h2 id="本篇文章會介紹什麼？"><a href="#本篇文章會介紹什麼？" class="headerlink" title="本篇文章會介紹什麼？"></a>本篇文章會介紹什麼？</h2><p>本系列第一篇將聚焦在 <strong>REST 與 API 的基礎概念</strong>，內容包含：</p><ul><li>API 與 REST 的基本定義</li><li>HTTP 協議核心概念<ul><li>HTTP 方法（GET &#x2F; POST &#x2F; PUT &#x2F; DELETE）</li><li>HTTP 狀態碼</li><li>HTTP Headers</li><li>媒體類型（Media Type）</li></ul></li><li>RESTful API 的設計原則與最佳實踐</li><li>實務開發中遇到的問題<ul><li>JSON 與 XML</li><li>API 版本控制（Versioning）</li></ul></li></ul><p>這些概念將作為後續 <strong>ASP.NET Core RESTful API 實作</strong>的基礎。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> ASP.NET </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ASP.NET Core </tag>
+            
+            <tag> RESTful API </tag>
+            
+            <tag> Web API </tag>
             
         </tags>
       
@@ -93,11 +155,11 @@
             
             <tag> Git </tag>
             
-            <tag> Git Bash </tag>
-            
             <tag> Hexo </tag>
             
             <tag> Windows </tag>
+            
+            <tag> Git Bash </tag>
             
         </tags>
       
@@ -122,11 +184,11 @@
             
             <tag> Git </tag>
             
-            <tag> Git Bash </tag>
-            
             <tag> Hexo </tag>
             
             <tag> Windows </tag>
+            
+            <tag> Git Bash </tag>
             
         </tags>
       
@@ -172,11 +234,11 @@
             
             <tag> Git </tag>
             
-            <tag> Git Bash </tag>
-            
             <tag> Hexo </tag>
             
             <tag> Windows </tag>
+            
+            <tag> Git Bash </tag>
             
         </tags>
       

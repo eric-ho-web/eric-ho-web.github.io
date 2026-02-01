@@ -8,7 +8,7 @@
       <link href="/2026/02/01/aspnet-core-restful-api-notes-1-2-1-http-introduce/"/>
       <url>/2026/02/01/aspnet-core-restful-api-notes-1-2-1-http-introduce/</url>
       
-        <content type="html"><![CDATA[<h2 id="1-2-1-HTTP-簡介"><a href="#1-2-1-HTTP-簡介" class="headerlink" title="1.2.1 HTTP 簡介"></a>1.2.1 HTTP 簡介</h2><p>超文本傳輸（Hyper Text Transfer Protocol, HTTP）協議，是互聯網上應用最為廣泛的一種網路協議，<br><br>也是基於 TCP&#x2F;IP 協議的應用層協議。<br><br>其中最為常見的瀏覽網頁過程，就是通過 HTTP 協議來傳遞瀏覽器與服務器之間的請求與響應，<br><br>其流程如圖 1-1 所示。</p><p><img src="/img/http-request-response-flow.png" alt="HTTP 請求 &#x2F; 響應流程"></p><p>從圖 1-1 中可以看出，HTTP 協議採用了請求響應模型。<br><br>當客戶端（通常是瀏覽器）發起一個 HTTP 請求時，<br><br>它首先會建立起到 HTTP 服務指定端口（HTTP 協議默認使用 80 端口）的 TCP 連接，<br><br>而 HTTP 服務器則負責在該端口監聽來自客戶端的請求。<br><br><br><br>當 TCP 連接成功建立後，瀏覽器就會向 HTTP 服務器發送請求命令，<br><br>如 GET &#x2F;index.html HTTP&#x2F;1.1。<br><br>一旦接收請求，服務器會根據請求向客戶端返回響應，<br><br>其響應內容通常包括一個狀態行（如 HTTP&#x2F;1.1 200 OK）、<br><br>若干消息頭，以及消息正文。<br><br>消息正文則是資源、請求的文件、錯誤或者其他信息等。<br><br><br><br>HTTP 協議採用的是明文傳輸數據，這種方式並不安全。<br><br>因此，網景公司（Netscape）在 1994 年設計了 HTTPS 協議，<br><br>即超文本傳輸安全協議（Hypertext Transfer Protocol Secure），<br><br>也被稱為 HTTP TLS、HTTP SSL。<br><br>在第 8 章中將對 HTTPS 協議進行更詳細的介紹。</p>]]></content>
+        <content type="html"><![CDATA[<h2 id="1-2-1-HTTP-簡介"><a href="#1-2-1-HTTP-簡介" class="headerlink" title="1.2.1 HTTP 簡介"></a>1.2.1 HTTP 簡介</h2><p>超文本傳輸（<strong>Hyper Text Transfer Protocol, HTTP</strong>）協議，<br>是互聯網上應用最為廣泛的一種網路協議，<br>也是基於 <strong>TCP&#x2F;IP 協議</strong> 的應用層協議。</p><p>在日常瀏覽網頁的過程中，<br>瀏覽器與服務器之間的通信，<br>正是通過 <strong>HTTP 協議</strong> 來完成請求與響應的交換，<br>其整體流程如下所示。</p><p><img src="/img/http-request-response-flow.png" alt="HTTP 請求 &#x2F; 響應流程"></p><p>從流程中可以看出，<br><strong>HTTP 採用的是「請求–響應（Request–Response）」模型</strong>。  </p><p>當 <strong>客戶端（通常是瀏覽器）</strong> 發起一個 HTTP 請求時，<br>它會先建立到 <strong>HTTP 服務端指定端口</strong><br>（<em>HTTP 默認使用 80 端口</em>）的 <strong>TCP 連接</strong>，<br>而 <strong>HTTP 服務器</strong> 則負責在該端口監聽來自客戶端的請求。</p><p>當 TCP 連接成功建立後，<br>瀏覽器會向 HTTP 服務器發送請求命令，例如：</p><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/index.html</span> <span class="meta">HTTP/1.1</span></span><br></pre></td></tr></table></figure><p>一旦服務器接收到請求，<br>便會根據請求向客戶端返回 <strong>HTTP 響應</strong>。  </p><p>HTTP 響應通常包含以下三個部分：</p><ul><li><strong>狀態行</strong>（例如 <code>HTTP/1.1 200 OK</code>）</li><li><strong>消息頭（Headers）</strong></li><li><strong>消息正文（Body）</strong></li></ul><p>其中，消息正文可能是請求的資源內容、<br>HTML 文件、JSON 數據、錯誤資訊，或其他相關內容。</p><p>需要注意的是，<br><strong>HTTP 協議本身採用明文方式傳輸數據</strong>，<br>這種通信方式在安全性上存在風險。</p><p>因此，<em>網景公司（Netscape）</em> 於 <strong>1994 年</strong><br>設計了 <strong>HTTPS（Hypertext Transfer Protocol Secure）</strong> 協議，<br>也常被稱為 <strong>HTTP over TLS &#x2F; HTTP over SSL</strong>，<br>以解決 HTTP 在安全性方面的不足。</p><p>在 <strong>第 8 章</strong> 中，<br>將對 <strong>HTTPS 協議</strong> 進行更為詳細的介紹。</p>]]></content>
       
       
       <categories>
@@ -292,11 +292,11 @@
             
             <tag> Git </tag>
             
-            <tag> Git Bash </tag>
-            
             <tag> Hexo </tag>
             
             <tag> Windows </tag>
+            
+            <tag> Git Bash </tag>
             
         </tags>
       
@@ -321,11 +321,11 @@
             
             <tag> Git </tag>
             
-            <tag> Git Bash </tag>
-            
             <tag> Hexo </tag>
             
             <tag> Windows </tag>
+            
+            <tag> Git Bash </tag>
             
         </tags>
       
@@ -371,11 +371,11 @@
             
             <tag> Git </tag>
             
-            <tag> Git Bash </tag>
-            
             <tag> Hexo </tag>
             
             <tag> Windows </tag>
+            
+            <tag> Git Bash </tag>
             
         </tags>
       

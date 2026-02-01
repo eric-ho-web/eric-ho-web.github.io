@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>ASP.NET Core RESTful API Notes (1.2.1) | HTTP 簡介</title>
+      <link href="/2026/02/01/aspnet-core-restful-api-notes-1-2-1-http-introduce/"/>
+      <url>/2026/02/01/aspnet-core-restful-api-notes-1-2-1-http-introduce/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-2-1-HTTP-簡介"><a href="#1-2-1-HTTP-簡介" class="headerlink" title="1.2.1 HTTP 簡介"></a>1.2.1 HTTP 簡介</h2><p>超文本傳輸（Hyper Text Transfer Protocol, HTTP）協議，是互聯網上應用最為廣泛的一種網路協議，<br><br>也是基於 TCP&#x2F;IP 協議的應用層協議。<br><br>其中最為常見的瀏覽網頁過程，就是通過 HTTP 協議來傳遞瀏覽器與服務器之間的請求與響應，<br><br>其流程如圖 1-1 所示。</p><p><img src="/img/http-request-response-flow.png" alt="HTTP 請求 &#x2F; 響應流程"></p><p>從圖 1-1 中可以看出，HTTP 協議採用了請求響應模型。<br><br>當客戶端（通常是瀏覽器）發起一個 HTTP 請求時，<br><br>它首先會建立起到 HTTP 服務指定端口（HTTP 協議默認使用 80 端口）的 TCP 連接，<br><br>而 HTTP 服務器則負責在該端口監聽來自客戶端的請求。<br><br><br><br>當 TCP 連接成功建立後，瀏覽器就會向 HTTP 服務器發送請求命令，<br><br>如 GET &#x2F;index.html HTTP&#x2F;1.1。<br><br>一旦接收請求，服務器會根據請求向客戶端返回響應，<br><br>其響應內容通常包括一個狀態行（如 HTTP&#x2F;1.1 200 OK）、<br><br>若干消息頭，以及消息正文。<br><br>消息正文則是資源、請求的文件、錯誤或者其他信息等。<br><br><br><br>HTTP 協議採用的是明文傳輸數據，這種方式並不安全。<br><br>因此，網景公司（Netscape）在 1994 年設計了 HTTPS 協議，<br><br>即超文本傳輸安全協議（Hypertext Transfer Protocol Secure），<br><br>也被稱為 HTTP TLS、HTTP SSL。<br><br>在第 8 章中將對 HTTPS 協議進行更詳細的介紹。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> ASP.NET </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ASP.NET Core </tag>
+            
+            <tag> RESTful API </tag>
+            
+            <tag> Web API </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>AI 會不會取代軟體工程師？決策、判斷與「需求地圖」</title>
       <link href="/2026/01/28/ai-will-not-replace-engineers/"/>
       <url>/2026/01/28/ai-will-not-replace-engineers/</url>
@@ -29,7 +58,36 @@
       <link href="/2026/01/28/aspnet-core-restful-api-notes-1-1-4-misunderstood-rest/"/>
       <url>/2026/01/28/aspnet-core-restful-api-notes-1-1-4-misunderstood-rest/</url>
       
-        <content type="html"><![CDATA[<h2 id="1-1-4-對-REST-的常見誤解"><a href="#1-1-4-對-REST-的常見誤解" class="headerlink" title="1.1.4 對 REST 的常見誤解"></a>1.1.4 對 REST 的常見誤解</h2><p>理解 REST 及其設計約束，有助於正確設計 RESTful API。<br>但在實務中，REST 常常被誤解成「只要符合某些表面特徵，就是 RESTful」。</p><p>以下是幾種<strong>常見但錯誤的認知</strong>：</p><ul><li>只要使用 HTTP 方法（GET &#x2F; POST &#x2F; PUT &#x2F; DELETE）的 API  </li><li>只要回傳 JSON 格式的 API  </li><li>只要能完成 CRUD（增刪查改）的 API</li></ul><p>雖然 REST 風格的 API <strong>通常也具備上述特性</strong>，<br>但 <strong>「具備這些特性 ≠ RESTful API」</strong>。</p><p>真正的 RESTful API，<br><strong>必須遵守 REST 所定義的一系列架構約束</strong>，<br>而不只是「看起來像」。</p><hr><h3 id="RESTful-API-與-API-成熟度"><a href="#RESTful-API-與-API-成熟度" class="headerlink" title="RESTful API 與 API 成熟度"></a>RESTful API 與 API 成熟度</h3><p>為了更清楚區分不同 API 設計風格，<br>常會使用 <strong>Richardson 成熟度模型（Richardson Maturity Model）</strong><br>來衡量 API 的成熟程度。</p><p>依照該模型：</p><ul><li>並非所有 Web API 都是 RESTful  </li><li>只有達到最高成熟度層級的 API，才符合 REST 的完整精神</li></ul><p>在後續章節（7.4 節）中，<br>將會更詳細說明 Richardson 成熟度模型的各個層級。</p><hr><h2 id="REST-與-RPC-風格-API-的差異"><a href="#REST-與-RPC-風格-API-的差異" class="headerlink" title="REST 與 RPC 風格 API 的差異"></a>REST 與 RPC 風格 API 的差異</h2><p>除了 REST，另一種常見的 API 設計方式是 <strong>RPC（Remote Procedure Call）風格</strong>，<br>也就是「遠端呼叫伺服器上的某個方法」。</p><p>以下是典型的 RPC 風格 API 範例：</p><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /getUserInfo</span><br><span class="line">GET /updateUserInfo</span><br></pre></td></tr></table></figure><h3 id="REST-與-RPC-的核心差異"><a href="#REST-與-RPC-的核心差異" class="headerlink" title="REST 與 RPC 的核心差異"></a>REST 與 RPC 的核心差異</h3><p><strong>關注點不同</strong></p><ul><li>REST：以「資源（Resource）」為核心  </li><li>RPC：以「功能或行為（Function &#x2F; Method）」為核心</li></ul><p><strong>API 端點命名方式</strong></p><ul><li>REST：使用名詞，代表資源或資源集合  </li><li>RPC：使用動詞，代表要執行的操作</li></ul><p><strong>操作方式</strong></p><ul><li>REST：對資源進行狀態操作  </li><li>RPC：呼叫伺服器上的方法</li></ul><p><strong>回傳結果</strong></p><ul><li>REST：回傳資源的表現（Representation）  </li><li>RPC：回傳方法執行的結果</li></ul><hr><h3 id="小結："><a href="#小結：" class="headerlink" title="小結："></a>小結：</h3><blockquote><p>REST 關心的是「這是什麼資源」，<br>RPC 關心的是「我要你幫我做什麼事」。</p></blockquote>]]></content>
+        <content type="html"><![CDATA[<h2 id="1-1-4-對-REST-的常見誤解"><a href="#1-1-4-對-REST-的常見誤解" class="headerlink" title="1.1.4 對 REST 的常見誤解"></a>1.1.4 對 REST 的常見誤解</h2><p>理解 REST 及其設計約束，有助於正確設計 RESTful API。<br>但在實務中，REST 常常被誤解成「只要符合某些表面特徵，就是 RESTful」。</p><p>以下是幾種<strong>常見但錯誤的認知</strong>：</p><ul><li>使用 HTTP 方法（GET &#x2F; POST &#x2F; PUT &#x2F; DELETE）的 API  </li><li>回傳 JSON 格式的 API  </li><li>執行 CRUD（增刪查改）的 API</li></ul><p>雖然 REST 風格的 API <strong>通常也具備上述特性</strong>，<br>但 <strong>「具備這些特性 不等於是 RESTful API」</strong>。</p><p>真正的 RESTful API，<br><strong>必須遵守 REST 所定義的一系列架構約束</strong>，<br>而不只是「看起來像」。</p><hr><h3 id="RESTful-API-與-API-成熟度"><a href="#RESTful-API-與-API-成熟度" class="headerlink" title="RESTful API 與 API 成熟度"></a>RESTful API 與 API 成熟度</h3><p>為了更清楚區分不同 API 設計風格，<br>常會使用 <strong>Richardson 成熟度模型（Richardson Maturity Model）</strong><br>來衡量 API 的成熟程度。</p><p>依照該模型：</p><ul><li>並非所有 Web API 都是 RESTful  </li><li>只有達到最高成熟度層級的 API，才符合 REST 的完整精神</li></ul><p>在後續章節（7.4 節）中，<br>將會更詳細說明 Richardson 成熟度模型的各個層級。</p><hr><h2 id="REST-與-RPC-風格-API-的差異"><a href="#REST-與-RPC-風格-API-的差異" class="headerlink" title="REST 與 RPC 風格 API 的差異"></a>REST 與 RPC 風格 API 的差異</h2><p>除了 REST，另一種常見的 API 設計方式是 <strong>RPC（Remote Procedure Call）風格</strong>，<br>也就是「遠端呼叫伺服器上的某個方法」。</p><p>以下是典型的 RPC 風格 API 範例：</p><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /getUserInfo</span><br><span class="line">GET /updateUserInfo</span><br></pre></td></tr></table></figure><h3 id="REST-與-RPC-的核心差異"><a href="#REST-與-RPC-的核心差異" class="headerlink" title="REST 與 RPC 的核心差異"></a>REST 與 RPC 的核心差異</h3><p><strong>關注點不同</strong></p><ul><li>REST：以「資源（Resource）」為核心  </li><li>RPC：以「功能或行為（Function &#x2F; Method）」為核心</li></ul><p><strong>API 端點命名方式</strong></p><ul><li>REST：使用名詞，代表資源或資源集合  </li><li>RPC：使用動詞，代表要執行的操作</li></ul><p><strong>操作方式</strong></p><ul><li>REST：對資源進行狀態操作  </li><li>RPC：呼叫伺服器上的方法</li></ul><p><strong>回傳結果</strong></p><ul><li>REST：回傳資源的表現（Representation）  </li><li>RPC：回傳方法執行的結果</li></ul><hr><h3 id="小結："><a href="#小結：" class="headerlink" title="小結："></a>小結：</h3><table><thead><tr><th>Style</th><th>Focus</th></tr></thead><tbody><tr><td>REST</td><td>Resource state</td></tr><tr><td>RPC</td><td>Operation</td></tr></tbody></table>]]></content>
+      
+      
+      <categories>
+          
+          <category> ASP.NET </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ASP.NET Core </tag>
+            
+            <tag> RESTful API </tag>
+            
+            <tag> Web API </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ASP.NET Core RESTful API Notes (1.2) | HTTP協議</title>
+      <link href="/2026/01/28/aspnet-core-restful-api-notes-1-2-0-http/"/>
+      <url>/2026/01/28/aspnet-core-restful-api-notes-1-2-0-http/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-2-HTTP協議"><a href="#1-2-HTTP協議" class="headerlink" title="1.2 HTTP協議"></a>1.2 HTTP協議</h2><p>在大部分的情況中，REST是基於HTTP協議實現的，因此深入了解HTTP協議是非常重要且必要的。<br>對於Web開發人員而言，深入了解HTTP協議將有助於開發者開發出更好的Web應用程序。<br>並且當應用程序出現問題時，能更加容易找出發生問題的癥結點。</p><h2 id="1-2-HTTP協議-目錄"><a href="#1-2-HTTP協議-目錄" class="headerlink" title="1.2 HTTP協議 目錄"></a>1.2 HTTP協議 目錄</h2><ul><li>1.2.1 HTTP 簡介</li><li>1.2.2 統一資源定位符</li><li>1.2.3 媒體類型</li><li>1.2.4 HTTP消息</li><li>1.2.5 HTTP方法</li><li>1.2.6 HTTP消息頭</li><li>1.2.7 狀態碼</li></ul>]]></content>
       
       
       <categories>
@@ -142,8 +200,8 @@
     
     <entry>
       <title>ASP.NET Core RESTful API Notes (1) | REST 基本概念</title>
-      <link href="/2026/01/25/aspnet-core-restful-api-notes-1-rest-intro/"/>
-      <url>/2026/01/25/aspnet-core-restful-api-notes-1-rest-intro/</url>
+      <link href="/2026/01/25/aspnet-core-restful-api-notes-1-1-0-rest-intro/"/>
+      <url>/2026/01/25/aspnet-core-restful-api-notes-1-1-0-rest-intro/</url>
       
         <content type="html"><![CDATA[<h1 id="第一章-REST-基本概念"><a href="#第一章-REST-基本概念" class="headerlink" title="第一章 REST 基本概念"></a>第一章 REST 基本概念</h1><p>REST，全名為 <strong>Representational State Transfer</strong>，中文常翻為「表述性狀態轉移」，<br>是一種用來設計 Web 應用程式與 API 的<strong>架構風格</strong>。</p><p>簡單來說，REST 的目標是讓系統：</p><ul><li>結構清楚</li><li>易於維護</li><li>具有良好的效能與擴充性</li></ul><p>遵循 REST 設計原則的應用程式，通常被稱為 <strong>RESTful 應用</strong>。</p><hr><h2 id="為什麼要學-REST？"><a href="#為什麼要學-REST？" class="headerlink" title="為什麼要學 REST？"></a>為什麼要學 REST？</h2><p>在實務上，大多數 RESTful API 都是<strong>基於 HTTP 協議</strong>來實作的。<br>因此，要真正理解 REST，就必須先掌握 HTTP 的核心概念。</p><hr><h2 id="本篇文章會介紹什麼？"><a href="#本篇文章會介紹什麼？" class="headerlink" title="本篇文章會介紹什麼？"></a>本篇文章會介紹什麼？</h2><p>本系列第一篇將聚焦在 <strong>REST 與 API 的基礎概念</strong>，內容包含：</p><ul><li>API 與 REST 的基本定義</li><li>HTTP 協議核心概念<ul><li>HTTP 方法（GET &#x2F; POST &#x2F; PUT &#x2F; DELETE）</li><li>HTTP 狀態碼</li><li>HTTP Headers</li><li>媒體類型（Media Type）</li></ul></li><li>RESTful API 的設計原則與最佳實踐</li><li>實務開發中遇到的問題<ul><li>JSON 與 XML</li><li>API 版本控制（Versioning）</li></ul></li></ul><p>這些概念將作為後續 <strong>ASP.NET Core RESTful API 實作</strong>的基礎。</p>]]></content>
       
@@ -234,11 +292,11 @@
             
             <tag> Git </tag>
             
+            <tag> Git Bash </tag>
+            
             <tag> Hexo </tag>
             
             <tag> Windows </tag>
-            
-            <tag> Git Bash </tag>
             
         </tags>
       
@@ -263,11 +321,11 @@
             
             <tag> Git </tag>
             
+            <tag> Git Bash </tag>
+            
             <tag> Hexo </tag>
             
             <tag> Windows </tag>
-            
-            <tag> Git Bash </tag>
             
         </tags>
       
@@ -313,11 +371,11 @@
             
             <tag> Git </tag>
             
+            <tag> Git Bash </tag>
+            
             <tag> Hexo </tag>
             
             <tag> Windows </tag>
-            
-            <tag> Git Bash </tag>
             
         </tags>
       

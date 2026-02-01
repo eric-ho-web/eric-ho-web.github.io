@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ASP.NET Core RESTful API Notes (1.2.1) | HTTP 簡介 | Eric’s Blog</title><meta name="author" content="Eric"><meta name="copyright" content="Eric"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1.2.1 HTTP 簡介超文本傳輸（Hyper Text Transfer Protocol, HTTP）協議，是互聯網上應用最為廣泛的一種網路協議，也是基於 TCP&#x2F;IP 協議的應用層協議。其中最為常見的瀏覽網頁過程，就是通過 HTTP 協議來傳遞瀏覽器與服務器之間的請求與響應，其流程如圖 1-1 所示。  從圖 1-1 中可以看出，HTTP 協議採用了請求響應模型。當客戶端（通常是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ASP.NET Core RESTful API Notes (1.2.1) | HTTP 簡介">
+<meta property="og:url" content="https://eric-ho-web.github.io/2026/02/01/aspnet-core-restful-api-notes-1-2-1-http-introduce/index.html">
+<meta property="og:site_name" content="Eric’s Blog">
+<meta property="og:description" content="1.2.1 HTTP 簡介超文本傳輸（Hyper Text Transfer Protocol, HTTP）協議，是互聯網上應用最為廣泛的一種網路協議，也是基於 TCP&#x2F;IP 協議的應用層協議。其中最為常見的瀏覽網頁過程，就是通過 HTTP 協議來傳遞瀏覽器與服務器之間的請求與響應，其流程如圖 1-1 所示。  從圖 1-1 中可以看出，HTTP 協議採用了請求響應模型。當客戶端（通常是">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://eric-ho-web.github.io/img/myphoto.jpg">
+<meta property="article:published_time" content="2026-02-01T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-01T03:39:16.000Z">
+<meta property="article:author" content="Eric">
+<meta property="article:tag" content="ASP.NET Core">
+<meta property="article:tag" content="RESTful API">
+<meta property="article:tag" content="Web API">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://eric-ho-web.github.io/img/myphoto.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ASP.NET Core RESTful API Notes (1.2.1) | HTTP 簡介",
+  "url": "https://eric-ho-web.github.io/2026/02/01/aspnet-core-restful-api-notes-1-2-1-http-introduce/",
+  "image": "https://eric-ho-web.github.io/img/myphoto.jpg",
+  "datePublished": "2026-02-01T02:00:00.000Z",
+  "dateModified": "2026-02-01T03:39:16.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Eric",
+      "url": "https://eric-ho-web.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://eric-ho-web.github.io/2026/02/01/aspnet-core-restful-api-notes-1-2-1-http-introduce/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ASP.NET Core RESTful API Notes (1.2.1) | HTTP 簡介',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://c0.wallpaperflare.com/preview/869/470/325/switzerland-engelberg-white-minimalistic.jpg);"></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://images.pexels.com/photos/5707110/pexels-photo-5707110.jpeg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Eric’s Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">ASP.NET Core RESTful API Notes (1.2.1) | HTTP 簡介</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div></div></nav><div id="post-info"><h1 class="post-title">ASP.NET Core RESTful API Notes (1.2.1) | HTTP 簡介</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-02-01T02:00:00.000Z" title="Created 2026-02-01 10:00:00">2026-02-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-02-01T03:39:16.000Z" title="Updated 2026-02-01 11:39:16">2026-02-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ASP-NET/">ASP.NET</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="1-2-1-HTTP-簡介"><a href="#1-2-1-HTTP-簡介" class="headerlink" title="1.2.1 HTTP 簡介"></a>1.2.1 HTTP 簡介</h2><p>超文本傳輸（Hyper Text Transfer Protocol, HTTP）協議，是互聯網上應用最為廣泛的一種網路協議，<br><br>也是基於 TCP&#x2F;IP 協議的應用層協議。<br><br>其中最為常見的瀏覽網頁過程，就是通過 HTTP 協議來傳遞瀏覽器與服務器之間的請求與響應，<br><br>其流程如圖 1-1 所示。</p>
+<p><img src="/img/http-request-response-flow.png" alt="HTTP 請求 &#x2F; 響應流程"></p>
+<p>從圖 1-1 中可以看出，HTTP 協議採用了請求響應模型。<br><br>當客戶端（通常是瀏覽器）發起一個 HTTP 請求時，<br><br>它首先會建立起到 HTTP 服務指定端口（HTTP 協議默認使用 80 端口）的 TCP 連接，<br><br>而 HTTP 服務器則負責在該端口監聽來自客戶端的請求。<br><br><br><br>當 TCP 連接成功建立後，瀏覽器就會向 HTTP 服務器發送請求命令，<br><br>如 GET &#x2F;index.html HTTP&#x2F;1.1。<br><br>一旦接收請求，服務器會根據請求向客戶端返回響應，<br><br>其響應內容通常包括一個狀態行（如 HTTP&#x2F;1.1 200 OK）、<br><br>若干消息頭，以及消息正文。<br><br>消息正文則是資源、請求的文件、錯誤或者其他信息等。<br><br><br><br>HTTP 協議採用的是明文傳輸數據，這種方式並不安全。<br><br>因此，網景公司（Netscape）在 1994 年設計了 HTTPS 協議，<br><br>即超文本傳輸安全協議（Hypertext Transfer Protocol Secure），<br><br>也被稱為 HTTP TLS、HTTP SSL。<br><br>在第 8 章中將對 HTTPS 協議進行更詳細的介紹。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://eric-ho-web.github.io">Eric</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://eric-ho-web.github.io/2026/02/01/aspnet-core-restful-api-notes-1-2-1-http-introduce/">https://eric-ho-web.github.io/2026/02/01/aspnet-core-restful-api-notes-1-2-1-http-introduce/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ASP-NET-Core/">ASP.NET Core</a><a class="post-meta__tags" href="/tags/RESTful-API/">RESTful API</a><a class="post-meta__tags" href="/tags/Web-API/">Web API</a></div><div class="post-share"><div class="social-share" data-image="/img/myphoto.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/01/28/ai-will-not-replace-engineers/" title="AI 會不會取代軟體工程師？決策、判斷與「需求地圖」"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">AI 會不會取代軟體工程師？決策、判斷與「需求地圖」</div></div><div class="info-2"><div class="info-item-1">AI 會不會取代軟體工程師？近年來，關於「AI 是否會取代軟體工程師」的討論層出不窮。我的立場並不是否認 AI 的能力，而是認為這個問題本身被問錯了方向。 真正的關鍵，不在於「AI 能不能寫程式」，而在於 軟體工程師在整個軟體生命週期中，真正不可取代的角色是什麼。  軟體工程的本質，不是寫程式在實務中，寫程式只是最後一段流程。在那之前，軟體工程師真正做的，是整理客戶的模糊需求，釐清他們真正需要的是什麼。 軟體工程師真正的價值在於：  理解模糊需求背後的真正意圖   協助利害關係人對齊認知   將自然語言、情境描述，轉化為可被驗證的邏輯結構  這是一個「模糊 → 結構化」的轉換過程，而非單純的產出行為。  人類的核心工作：將需求轉化為結構化模型在工程實務中，人類工程師會聚焦於：  拆解需求中的不確定性 定義系統邊界與責任歸屬 將問題轉換為具體的邏輯模型  這些模型通常表現為：  時序圖（Sequence Diagram） 權責與角色關係圖（Responsibility &#x2F; Ownership） 系統互動與狀態轉換 UML 或等價的設計表示法  這些產出本質上是決策的結果，...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/01/25/aspnet-core-restful-api-notes-1-1-2-rest/" title="ASP.NET Core RESTful API Notes (1.1.2) | 什麼是 REST"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-25</div><div class="info-item-2">ASP.NET Core RESTful API Notes (1.1.2) | 什麼是 REST</div></div><div class="info-2"><div class="info-item-1">1.1.2 什麼是 RESTREST，全名為 REpresentational State Transfer，中文常翻為「表述性狀態傳遞」，是一種用來設計 Web 服務的架構風格。 REST 並不是一種技術、框架或語言，而是一組設計原則，用來指導如何設計可擴展、易維護的 Web API。這個概念最早由 Roy Fielding 在西元 2000 年的博士論文中提出。  REST 是為了解決什麼問題？在 Web 服務規模逐漸擴大後，系統往往會面臨以下問題：  API 結構混亂、難以理解   不同服務之間耦合度過高   擴充新功能時影響既有系統  REST 的目的，是降低系統複雜度，並讓 Web 服務能夠更容易擴展與維護。  資源（Resource）是 REST 的核心在 REST 中，資源（Resource）是最基本的概念。 任何「可以被命名、被操作的對象」都可以視為一種資源，例如：  user order product document  每一個資源，都會對應到一個 URI（Uniform Resource Identifier），用來唯一識別該資源，例如： 12/users/...</div></div></div></a><a class="pagination-related" href="/2026/01/28/aspnet-core-restful-api-notes-1-2-0-http/" title="ASP.NET Core RESTful API Notes (1.2) | HTTP協議"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-28</div><div class="info-item-2">ASP.NET Core RESTful API Notes (1.2) | HTTP協議</div></div><div class="info-2"><div class="info-item-1">1.2 HTTP協議在大部分的情況中，REST是基於HTTP協議實現的，因此深入了解HTTP協議是非常重要且必要的。對於Web開發人員而言，深入了解HTTP協議將有助於開發者開發出更好的Web應用程序。並且當應用程序出現問題時，能更加容易找出發生問題的癥結點。 1.2 HTTP協議 目錄 1.2.1 HTTP 簡介 1.2.2 統一資源定位符 1.2.3 媒體類型 1.2.4 HTTP消息 1.2.5 HTTP方法 1.2.6 HTTP消息頭 1.2.7 狀態碼  </div></div></div></a><a class="pagination-related" href="/2026/01/25/aspnet-core-restful-api-notes-1-1-0-rest-intro/" title="ASP.NET Core RESTful API Notes (1) | REST 基本概念"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-25</div><div class="info-item-2">ASP.NET Core RESTful API Notes (1) | REST 基本概念</div></div><div class="info-2"><div class="info-item-1">第一章 REST 基本概念REST，全名為 Representational State Transfer，中文常翻為「表述性狀態轉移」，是一種用來設計 Web 應用程式與 API 的架構風格。 簡單來說，REST 的目標是讓系統：  結構清楚 易於維護 具有良好的效能與擴充性  遵循 REST 設計原則的應用程式，通常被稱為 RESTful 應用。  為什麼要學 REST？在實務上，大多數 RESTful API 都是基於 HTTP 協議來實作的。因此，要真正理解 REST，就必須先掌握 HTTP 的核心概念。  本篇文章會介紹什麼？本系列第一篇將聚焦在 REST 與 API 的基礎概念，內容包含：  API 與 REST 的基本定義 HTTP 協議核心概念 HTTP 方法（GET &#x2F; POST &#x2F; PUT &#x2F; DELETE） HTTP 狀態碼 HTTP Headers 媒體類型（Media Type）   RESTful API 的設計原則與最佳實踐 實務開發中遇到的問題 JSON 與 XML API 版本控制（Versioning）    這些...</div></div></div></a><a class="pagination-related" href="/2026/01/27/aspnet-core-restful-api-notes-1-1-3-rest-constraints/" title="ASP.NET Core RESTful API Notes (1.1.3) | REST 約束"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-27</div><div class="info-item-2">ASP.NET Core RESTful API Notes (1.1.3) | REST 約束</div></div><div class="info-2"><div class="info-item-1">REST 約束REST 定義了 6 個框架約束（Constraint）。遵循這些約束的 Web 服務，才能被稱為真正的 RESTful 服務。 如果一個系統違反了其中任一項約束，則不能稱其為 RESTful。這些約束包括以下內容。  1. 客戶端－伺服器（Client–Server）客戶端－伺服器約束體現了關注點分離（Separation of Concerns） 原則。 它使客戶端與伺服器端能夠各自獨立實作與開發，只要雙方之間的介面不改變即可。  客戶端與伺服器可以使用不同的技術或程式語言   有助於提升系統的可維護性與可擴充性   2. 統一介面（Uniform Interface）統一介面是設計任何 RESTful 服務的基礎，也是區別 REST 架構風格與其他 Web 服務風格的最主要約束。 系統中的多個元件（包含伺服器、客戶端，以及可能存在的代理伺服器），都依賴於統一介面。 統一介面約束由以下 4 個子約束 組成。  2.1 資源的標示前面提到過，任何能夠命名的對象都是一個資源。資源能夠透過統一的識別符進行區別。 在 Web 系統中，統一資源標示通常是一個URL（Uni...</div></div></div></a><a class="pagination-related" href="/2026/01/25/aspnet-core-restful-api-notes-1-1-1-api/" title="ASP.NET Core RESTful API Notes (1.1.1) | 什麼是 API"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-25</div><div class="info-item-2">ASP.NET Core RESTful API Notes (1.1.1) | 什麼是 API</div></div><div class="info-2"><div class="info-item-1">1.1 API 與 REST1.1.1 什麼是 APIAPI，全名為 Application Programming Interface，中文常翻為「應用程式介面」，在開發應用程式時經常會使用到。 簡單來說，API 是一種用來連接兩個系統的介面，讓一方可以透過定義好的方式，向另一方請求服務或資料。  API 的概念API 可以想成是一個系統「對外公開」的一組操作規格：  系統會定義哪些功能可以被使用   外部應用只能透過 API 與系統互動   不需要知道系統內部是如何實作的  例如，在作業系統上執行的應用程式，會透過作業系統提供的 API 來操作檔案、網路或硬體資源，而不需要直接操作底層實作。  Web API 是什麼在 Web 應用中，Web API 具備與一般 API 相同的特性，差別在於它是透過 HTTP 對外提供服務。 Web API 通常用來操作資料，例如：  取得資料（查詢） 新增或修改資料 刪除資料  這些 API 可以被各種不同的應用程式呼叫，例如：  網頁前端（如 ASP.NET Core MVC、SPA） 行動裝置應用程式 其他後端系統或服務   跨平台與語...</div></div></div></a><a class="pagination-related" href="/2026/01/28/aspnet-core-restful-api-notes-1-1-4-misunderstood-rest/" title="ASP.NET Core RESTful API Notes (1.1.4) | 對 REST 的錯誤理解"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-28</div><div class="info-item-2">ASP.NET Core RESTful API Notes (1.1.4) | 對 REST 的錯誤理解</div></div><div class="info-2"><div class="info-item-1">1.1.4 對 REST 的常見誤解理解 REST 及其設計約束，有助於正確設計 RESTful API。但在實務中，REST 常常被誤解成「只要符合某些表面特徵，就是 RESTful」。 以下是幾種常見但錯誤的認知：  使用 HTTP 方法（GET &#x2F; POST &#x2F; PUT &#x2F; DELETE）的 API   回傳 JSON 格式的 API   執行 CRUD（增刪查改）的 API  雖然 REST 風格的 API 通常也具備上述特性，但 「具備這些特性 不等於是 RESTful API」。 真正的 RESTful API，必須遵守 REST 所定義的一系列架構約束，而不只是「看起來像」。  RESTful API 與 API 成熟度為了更清楚區分不同 API 設計風格，常會使用 Richardson 成熟度模型（Richardson Maturity Model）來衡量 API 的成熟程度。 依照該模型：  並非所有 Web API 都是 RESTful   只有達到最高成熟度層級的 API，才符合 REST 的完整精神  在後續章節（7.4 節）...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/myphoto.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Eric</div><div class="author-info-description">eric.ho.web</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/eric-ho-web"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-1-HTTP-%E7%B0%A1%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">1.2.1 HTTP 簡介</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/01/aspnet-core-restful-api-notes-1-2-1-http-introduce/" title="ASP.NET Core RESTful API Notes (1.2.1) | HTTP 簡介">ASP.NET Core RESTful API Notes (1.2.1) | HTTP 簡介</a><time datetime="2026-02-01T02:00:00.000Z" title="Created 2026-02-01 10:00:00">2026-02-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/28/ai-will-not-replace-engineers/" title="AI 會不會取代軟體工程師？決策、判斷與「需求地圖」">AI 會不會取代軟體工程師？決策、判斷與「需求地圖」</a><time datetime="2026-01-28T15:20:37.000Z" title="Created 2026-01-28 23:20:37">2026-01-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/28/aspnet-core-restful-api-notes-1-1-4-misunderstood-rest/" title="ASP.NET Core RESTful API Notes (1.1.4) | 對 REST 的錯誤理解">ASP.NET Core RESTful API Notes (1.1.4) | 對 REST 的錯誤理解</a><time datetime="2026-01-28T01:10:00.000Z" title="Created 2026-01-28 09:10:00">2026-01-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/28/aspnet-core-restful-api-notes-1-2-0-http/" title="ASP.NET Core RESTful API Notes (1.2) | HTTP協議">ASP.NET Core RESTful API Notes (1.2) | HTTP協議</a><time datetime="2026-01-28T01:10:00.000Z" title="Created 2026-01-28 09:10:00">2026-01-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/27/aspnet-core-restful-api-notes-1-1-3-rest-constraints/" title="ASP.NET Core RESTful API Notes (1.1.3) | REST 約束">ASP.NET Core RESTful API Notes (1.1.3) | REST 約束</a><time datetime="2026-01-27T01:10:00.000Z" title="Created 2026-01-27 09:10:00">2026-01-27</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Eric</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="local-search-input"><input placeholder="Search for Posts" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.3"></script></div></div></body></html>
